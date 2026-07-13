@@ -1,0 +1,4 @@
+candidate,ats_score,semantic_score,keyword_score,matched_keywords,missing_keywords,resume_word_count
+Strong Match,57.4,28.8,100.0,"['aws', 'ci/cd', 'docker', 'fastapi', 'postgresql', 'python']",[],45
+Partial Match,10.9,3.5,0.0,[],"['aws', 'ci/cd', 'docker', 'fastapi', 'postgresql', 'python']",34
+Weak Match,10.6,2.9,0.0,[],"['aws', 'ci/cd', 'docker', 'fastapi', 'postgresql', 'python']",28
