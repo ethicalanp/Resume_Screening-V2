@@ -12,7 +12,7 @@ from sqlalchemy.orm import Session
 
 from app.database import get_db, Job, Screening
 from app.models.schemas import JobCreate, JobResponse, ScreeningResponse, DecisionUpdate
-from app.services import parser, scorer, gemini_service
+from app.services import parser, scorer, AI_service
 
 router = APIRouter(prefix="/api/hr", tags=["HR Portal"])
 
@@ -131,7 +131,7 @@ async def screen_resume(
     )
 
     # ── AI Summary (HR-facing, concise) ──────────────────────────────────────
-    ai_summary = await gemini_service.get_hr_summary(
+    ai_summary = await AI_service.get_hr_summary(
         resume_text=resume_text,
         jd_text=job.jd_text,
         matched_keywords=score_result["matched_keywords"],
@@ -140,7 +140,7 @@ async def screen_resume(
     )
 
     # ── AI Detailed Feedback ──────────────────────────────────────────────────
-    ai_feedback = await gemini_service.get_candidate_feedback(
+    ai_feedback = await AI_service.get_candidate_feedback(
         resume_text=resume_text,
         jd_text=job.jd_text,
         matched_keywords=score_result["matched_keywords"],
