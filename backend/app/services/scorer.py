@@ -13,7 +13,7 @@ import re
 from typing import List, Set, Tuple
 import numpy as np
 
-from app.services import gemini_service, keyword_extractor, parser
+from app.services import AI_service, keyword_extractor, parser
 
 
 # ── Experience extraction ─────────────────────────────────────────────────────
@@ -180,13 +180,13 @@ async def score_resume_against_jd(
     # 1. Embeddings (async, in parallel)
     import asyncio
     if jd_embedding:
-        resume_emb_task = gemini_service.get_embedding(resume_text)
+        resume_emb_task = AI_service.get_embedding(resume_text)
         resume_emb = await resume_emb_task
         jd_emb = jd_embedding
     else:
         resume_emb, jd_emb = await asyncio.gather(
-            gemini_service.get_embedding(resume_text),
-            gemini_service.get_embedding(jd_text),
+            AI_service.get_embedding(resume_text),
+            AI_service.get_embedding(jd_text),
         )
 
     # 2. Semantic similarity
