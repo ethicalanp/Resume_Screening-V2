@@ -11,7 +11,7 @@ from sqlalchemy.orm import Session
 
 from app.database import get_db, CandidateCheck
 from app.models.schemas import CandidateCheckResult
-from app.services import parser, scorer, gemini_service
+from app.services import parser, scorer, AI_service
 
 router = APIRouter(prefix="/api/candidate", tags=["Candidate"])
 
@@ -63,7 +63,7 @@ async def check_resume(
     score_result = await scorer.score_resume_against_jd(resume_text, jd_text)
 
     # ── AI Feedback ───────────────────────────────────────────────────────────
-    ai_feedback = await gemini_service.get_candidate_feedback(
+    ai_feedback = await AI_service.get_candidate_feedback(
         resume_text=resume_text,
         jd_text=jd_text,
         matched_keywords=score_result["matched_keywords"],
