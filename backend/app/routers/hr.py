@@ -26,7 +26,7 @@ async def create_job(job: JobCreate, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Job description too short.")
 
     # Embed JD now so screening is faster later
-    jd_embedding = await gemini_service.get_embedding(job.jd_text)
+    jd_embedding = await AI_service.get_embedding(job.jd_text)
 
     job_id = str(uuid.uuid4())
     db_job = Job(
