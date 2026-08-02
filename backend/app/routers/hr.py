@@ -10,9 +10,9 @@ from typing import List
 from fastapi import APIRouter, UploadFile, File, Form, HTTPException, Depends
 from sqlalchemy.orm import Session
 
-from app.database import get_db, Job, Screening
-from app.models.schemas import JobCreate, JobResponse, ScreeningResponse, DecisionUpdate
-from app.services import parser, scorer, AI_service
+from backend.app.database import get_db, Job, Screening
+from backend.app.models.schemas import JobCreate, JobResponse, ScreeningResponse, DecisionUpdate
+from backend.app.services import parser, scorer, AI_service
 
 router = APIRouter(prefix="/api/hr", tags=["HR Portal"])
 
