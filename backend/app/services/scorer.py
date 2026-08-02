@@ -13,7 +13,7 @@ import re
 from typing import List, Set, Tuple
 import numpy as np
 
-from app.services import AI_service, keyword_extractor, parser
+from backend.app.services import AI_service, keyword_extractor, parser
 
 
 # ── Experience extraction ─────────────────────────────────────────────────────
