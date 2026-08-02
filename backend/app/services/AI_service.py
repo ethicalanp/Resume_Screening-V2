@@ -8,14 +8,19 @@ import json
 import asyncio
 import re
 from typing import List, Optional
-import google.generativeai as genai
+
+try:
+    import google.generativeai as genai
+except ImportError:  # pragma: no cover - exercised when optional dependency is absent
+    genai = None
+
 from dotenv import load_dotenv
 
 load_dotenv()
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 
-if GEMINI_API_KEY:
+if GEMINI_API_KEY and genai is not None:
     genai.configure(api_key=GEMINI_API_KEY)
 
 _model = None
@@ -23,6 +28,8 @@ _model = None
 
 def _get_model():
     global _model
+    if genai is None:
+        raise RuntimeError("google.generativeai is not available")
     if _model is None:
         _model = genai.GenerativeModel("gemini-1.5-flash")
     return _model
@@ -30,7 +37,7 @@ def _get_model():
 
 async def get_embedding(text: str) -> List[float]:
     """Get text embedding using Gemini text-embedding-004."""
-    if not GEMINI_API_KEY:
+    if not GEMINI_API_KEY or genai is None:
         # Return a zero vector as fallback (for testing without API key)
         return [0.0] * 768
 
@@ -65,7 +72,7 @@ async def get_candidate_feedback(
     Generate detailed candidate-facing feedback.
     Returns structured JSON with strengths, improvements, section feedback, verdict.
     """
-    if not GEMINI_API_KEY:
+    if not GEMINI_API_KEY or genai is None:
         return _mock_candidate_feedback(matched_keywords, missing_keywords, semantic_score)
 
     # Trim inputs to avoid token limits
@@ -140,7 +147,7 @@ async def get_hr_summary(
     ats_score: float,
 ) -> str:
     """Generate a concise 3-sentence HR-facing candidate summary."""
-    if not GEMINI_API_KEY:
+    if not GEMINI_API_KEY or genai is None:
         return f"Candidate scored {ats_score:.0f}% on ATS matching. Matched keywords: {', '.join(matched_keywords[:5])}. Review recommended."
 
     resume_trimmed = resume_text[:3000]
