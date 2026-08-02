@@ -31,7 +31,7 @@ function App() {
     formData.append('jd_text', candidateJd);
 
     try {
-      const response = await axios.post(`${API_BASE}/api/candidate/check`, formData, {
+      const response = await axios.post(`${API_BASE}/candidate/check`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       setCandidateResult(response.data);
@@ -50,7 +50,7 @@ function App() {
     }
 
     try {
-      const response = await axios.post(`${API_BASE}/api/hr/jobs`, {
+      const response = await axios.post(`${API_BASE}/hr/jobs`, {
         title: jobTitle,
         company,
         jd_text: jobDescription,
@@ -74,7 +74,7 @@ function App() {
     formData.append('resume', hrFile);
 
     try {
-      const response = await axios.post(`${API_BASE}/api/hr/jobs/${jobId}/screen`, formData, {
+      const response = await axios.post(`${API_BASE}/hr/jobs/${jobId}/screen`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       setHrResult(response.data);
