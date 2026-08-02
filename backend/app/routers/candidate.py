@@ -9,9 +9,9 @@ from datetime import datetime
 from fastapi import APIRouter, UploadFile, File, Form, HTTPException, Depends
 from sqlalchemy.orm import Session
 
-from app.database import get_db, CandidateCheck
-from app.models.schemas import CandidateCheckResult
-from app.services import parser, scorer, AI_service
+from backend.app.database import get_db, CandidateCheck
+from backend.app.models.schemas import CandidateCheckResult
+from backend.app.services import parser, scorer, AI_service
 
 router = APIRouter(prefix="/api/candidate", tags=["Candidate"])
 
