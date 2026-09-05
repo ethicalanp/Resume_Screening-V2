@@ -26,8 +26,8 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-app.include_router(candidate.router,prefix="/api")
-app.include_router(hr.router,prefix="/api")
+app.include_router(candidate.router)
+app.include_router(hr.router)
 
 
 @app.get("/")
