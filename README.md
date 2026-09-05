@@ -90,8 +90,6 @@ npm run dev
 
 Open [http://127.0.0.1:3000](http://127.0.0.1:3000). Vite proxies `/api` requests to the backend at port `8000`.
 
-For a convenience launcher, run `python app.py` from the repository root. It starts both services and selects available ports; the separate commands above are recommended when developing against Vite's configured proxy.
-
 ## How It Works
 
 ### Candidate workflow
