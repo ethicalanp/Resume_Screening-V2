@@ -7,7 +7,12 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./resume_screener.db")
+DEFAULT_DATABASE_URL = (
+    "sqlite:////tmp/resume_screener.db"
+    if os.getenv("VERCEL")
+    else "sqlite:///./resume_screener.db"
+)
+DATABASE_URL = os.getenv("DATABASE_URL", DEFAULT_DATABASE_URL)
 
 engine = create_engine(
     DATABASE_URL,
