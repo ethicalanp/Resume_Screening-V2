@@ -35,20 +35,18 @@ The project includes a React frontend, a FastAPI backend, and a SQLite database.
 From the repository root:
 
 ```bash
-python -m venv .venv
+python -m venv venv
 ```
 
 Activate the environment:
 
 ```bash
 # Windows PowerShell
-.\.venv\Scripts\Activate.ps1
+.\venv\Scripts\Activate.ps1
 
 # macOS/Linux
-source .venv/bin/activate
+source venv/bin/activate
 ```
-
-Install the Python packages:
 
 ```bash
 python -m pip install -r requirements.txt
@@ -78,7 +76,8 @@ DATABASE_URL=sqlite:///./resume_screener.db
 Start the backend in one terminal:
 
 ```bash
-python -m uvicorn backend.app.main:app --reload --host 127.0.0.1 --port 8000
+```bash
+python -m uvicorn backend.app.main:app --app-dir .. --reload --host 127.0.0.1 --port 8000
 ```
 
 Start the frontend in a second terminal:
@@ -91,6 +90,11 @@ npm run dev
 Open [http://127.0.0.1:3000](http://127.0.0.1:3000). Vite proxies `/api` requests to the backend at port `8000`.
 
 ## How It Works
+
+### Common startup errors
+
+- `ModuleNotFoundError: No module named 'backend'`: run the command from the repository root, or add `--app-dir ..` when running inside `backend`.
+- `WinError 10013` or `WinError 10048`: stop any existing Uvicorn process using port `8000`, or start the backend on another port and update `frontend/vite.config.js` to use the same port.
 
 ### Candidate workflow
 
